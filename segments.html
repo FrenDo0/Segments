@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+    <div>
+        <label>Дължина на отсечката</label><br>
+        <input type="text" id="length" name="length"><br>
+        <label>Точка от А до У</label><br>
+        <input type="text" id="a" name="a"><br>
+        <label>Точка от У до А</label><br>
+        <input type="text" id="b" name="b"><br>
+        <br>
+        <label>Дължина между две точки</label><br>
+        <label>Row</label><br>
+        <input type="text" id="c" name="c"><br>
+        <br>
+        
+        <button onclick="Draw()">Начертай</button><br>
+        <p id="result"></p><br>
+    
+    </div>
+    <div id="printImage"></div>
+    <script>
+        function Draw(){
+            let length = document.getElementById('length').value;
+            let a = document.getElementById('a').value;
+            let b = document.getElementById('b').value;
+            let c = document.getElementById('c').value;
+           
+            let array = new Array();
+            length ++;
+            let tempA = 0;
+            tempA = a;
+            a++;
+            a--;
+            tempA++;
+            tempA--;
+            let tempB = 0;
+            tempB++;
+            tempB--;
+            b++;
+            b--;
+            c++;
+            c--;
+            for(var i = 0; i < length; i++){
+                array[i] = [0];
+            }
+
+            for(var i = 0; i < length; i++){
+                if(i == tempA){
+                    array[i] = [i];
+                    tempA = tempA + a;
+                }
+            }
+            let test = length - 1;
+            
+            for (var i = length - 1; i >= 0; i--) {
+                if(test >= 0 && test - b >= 0){
+                    array[test - b] = [test-b];
+                   test = test - b;
+                }
+            }
+            let sum = 0;
+            let arrayResult = new Array();
+            let first = 0;
+            let second = 1;
+            let counter = 0;
+            document.write("<br>");
+            for(var i = 0; i < length -2 ; i+=2){
+                first = array[i];
+                second = array[i+1];
+                if(c = second - first){
+                    counter++;
+                }
+            }
+            let res = length - counter;
+            document.write(res);
+            document.write("<br>");
+            for(var i = 0; i < length; i++){
+                document.write(array[i]);
+            }
+           
+        }
+    </script>
+</body>
+</html>
