@@ -11,15 +11,17 @@
         <input type="text" id="b" name="b"><br>
         <br>
         <label>Дължина между две точки</label><br>
-        <label>Row</label><br>
         <input type="text" id="c" name="c"><br>
         <br>
         
         <button onclick="Draw()">Начертай</button><br>
-        <p id="result"></p><br>
-    
+       <button onclick="drawLine()">тест</button>
     </div>
-    <div id="printImage"></div>
+    <div>
+        <canvas id="canvas" width="750" height="350" style="border:1px solid #e81111;">
+    </canvas>
+    </div>
+    
     <script>
         function Draw(){
             let length = document.getElementById('length').value;
@@ -52,34 +54,81 @@
                     tempA = tempA + a;
                 }
             }
-            let test = length - 1;
+            let opposite = length - 1;
             
             for (var i = length - 1; i >= 0; i--) {
-                if(test >= 0 && test - b >= 0){
-                    array[test - b] = [test-b];
-                   test = test - b;
+                if(opposite >= 0 && opposite - b >= 0){
+                    array[opposite - b] = [opposite-b];
+                    opposite = opposite - b;
                 }
             }
-            let sum = 0;
-            let arrayResult = new Array();
+            
             let first = 0;
-            let second = 1;
+            let second = 0;
             let counter = 0;
-            document.write("<br>");
-            for(var i = 0; i < length -2 ; i+=2){
+           
+            let test = 150;
+           
+            let current = 0;
+            let asd = 0;
+            let next = 20;
+            let sum = 0;
+            let x = 5;
+            for(var i = 0; i < length - 1; i++){
+               
                 first = array[i];
                 second = array[i+1];
-                if(c = second - first){
+                sum = second - first;
+                if(c == sum){
                     counter++;
+                    drawLineRed(current,next,test);
+                     //изчертава квадратче над всяка отсечка в цвета на отсечката
+                   // drawSomething(x,120);
+                   // x+=20;
+                    current += 20;
+                    next += 20;
+                }else{
+                    drawLine(current,next,test);
+                    //изчертава квадратче над всяка отсечка в цвета на отсечката
+                   // drawSomething(x,120);
+                   // x+=20;
+                    current += 20;
+                    next += 20;
                 }
             }
-            let res = length - counter;
+           /* let res = length - 1 - counter;
             document.write(res);
             document.write("<br>");
-            for(var i = 0; i < length; i++){
-                document.write(array[i]);
-            }
            
+            document.write("<br>");
+            for(var i = 0; i < array.length; i++){
+                document.write(array[i] + " ");
+            }*/
+        }
+        function drawSomething(x,y){
+            var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.rect(x, y, 10, 10);
+            ctx.stroke();   
+        }
+        function drawLine(current,next,test){
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(current,test);
+            ctx.lineTo(next,test);
+            ctx.strokeStyle = '#000000';
+            ctx.stroke();
+        }
+        function drawLineRed(current,next,test){
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(current,test);
+            ctx.lineTo(next,test);
+            ctx.strokeStyle = '#ff0000';
+            ctx.stroke();
         }
     </script>
 </body>
